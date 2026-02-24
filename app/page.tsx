@@ -1,4 +1,4 @@
-import React from "react";
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,6 +10,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { LockKeyhole } from "lucide-react";
 import Link from "next/link";
+import { useAuth } from "@/context/AuthContext";
 
 const courses = [
   {
@@ -46,12 +47,12 @@ const courses = [
 
 const CourseCatalog = () => {
   const brandColor = "#DC8916";
-
+  const { user, login, logout } = useAuth();
   return (
     <div className="min-h-screen bg-slate-50 p-6 md:p-12 font-sans">
       {/* Top Navigation / Header */}
       <header className="max-w-6xl mx-auto flex justify-between items-center ">
-        <div className="flex flex-col">
+        <div className=" flex flex-col">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight tracking-tight">
             Sensationz
             <span className="block sm:inline" style={{ color: brandColor }}>
@@ -61,14 +62,12 @@ const CourseCatalog = () => {
             Arts
           </h1>
         </div>
-        <Link href={"/login"}>
-          <Button
-            style={{ backgroundColor: brandColor }}
-            className="hover:brightness-110 shadow-lg shadow-[#DC8916]/20 transition-all"
-          >
-            Login
-          </Button>
-        </Link>
+        <Button
+          onClick={user ? logout : login}
+          style={{ backgroundColor: "#DC8916" }}
+        >
+          {user ? "Logout" : "Login with Google"}
+        </Button>
       </header>
       <div className="flex flex-col items-center justify-center py-20 px-4 text-center">
         {/* Subtle Top Badge */}
@@ -105,6 +104,7 @@ const CourseCatalog = () => {
           curriculums designed by industry experts.
         </p>
       </div>
+
       {/* Course Grid */}
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
         {courses.map((course) => (
