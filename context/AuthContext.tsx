@@ -8,6 +8,8 @@ import {
   User,
 } from "firebase/auth";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+// import { cookies } from "next/headers";
 
 interface AuthContextType {
   user: User | null;
@@ -32,15 +34,31 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const login = async () => {
     try {
-      await signInWithPopup(auth, googleProvider);
-      // console.log(result.user);
-      router.push("/onboarding");
+      const result = await signInWithPopup(auth, googleProvider);
+      const idToken = await result.user.getIdToken();
+      const response = await axios.post("/api/auth/session/log-in", {
+        idToken,
+      });
+
+      if (response.data.success) {
+        router.push("/onboarding");
+      } else {
+        console.log("LOGIN FAILED", response.data.message, response.data.error);
+      }
     } catch (error) {
       console.error("Login failed", error);
     }
   };
 
-  const logout = () => signOut(auth);
+  const logout = async () => {
+    const logout = await signOut(auth);
+    const result = await axios.post("/api/auth/session/log-out");
+    if (result.data.success) {
+      router.push("/");
+    } else {
+      console.log("LOGOUT FAILED", result.data.message, result.data.error);
+    }
+  };
 
   return (
     <AuthContext.Provider value={{ user, login, logout, loading }}>
