@@ -35,7 +35,10 @@ const formSchema = z.object({
   fullName: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
   gender: z.string().min(1, "Please select a gender"),
-  phone: z.string().min(10, "Phone number must be at least 10 digits"),
+  phone: z
+    .string()
+    .min(8, "Phone number must be at least 10 digits")
+    .max(12, "Phone number must be smaller than 12 digits"),
   dob: z.string().min(1, "Date of birth is required"),
   country: z.string().min(1, "Please select a country"),
   state: z.string().min(1, "Please select a state"),
@@ -106,8 +109,38 @@ export default function StudentDetailForm() {
     }
   };
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("Final Submission:", { ...values, dialCode: selectedDialCode });
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const fullPhoneNumber = `${selectedDialCode}${values.phone.replace(/\s+/g, "")}`;
+
+    const finalData = {
+      ...values,
+      phone: fullPhoneNumber,
+    };
+
+    console.log("Final Submission to DB:", finalData);
+    try {
+      // 2. Send the POST request to your local API
+      const response = await fetch(
+        "http://localhost:5000/api/auth/create-profile",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(finalData),
+        },
+      );
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("Successfully saved to DB:", result);
+        alert("Profile updated successfully!"); // You can replace this with a Shadcn Toast
+      } else {
+        console.error("Failed to save profile", response);
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+    }
   }
 
   return (
@@ -134,6 +167,7 @@ export default function StudentDetailForm() {
                       <FormLabel>Full Name</FormLabel>
                       <FormControl>
                         <Input
+                          disabled={true}
                           placeholder="Full Name"
                           className="focus-visible:ring-[#DC8916]"
                           {...field}
@@ -153,6 +187,7 @@ export default function StudentDetailForm() {
                       <FormLabel>Email Address</FormLabel>
                       <FormControl>
                         <Input
+                          disabled={true}
                           type="email"
                           placeholder="name@example.com"
                           className="focus-visible:ring-[#DC8916]"
@@ -185,39 +220,6 @@ export default function StudentDetailForm() {
                           <SelectItem value="female">Female</SelectItem>
                         </SelectContent>
                       </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                {/* Contact Number with Flag/Code */}
-                <FormField
-                  control={form.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Contact Number</FormLabel>
-                      <div className="flex rounded-md border border-input focus-within:ring-2 focus-within:ring-[#DC8916] overflow-hidden bg-white">
-                        <div className="flex items-center gap-2 px-3 bg-slate-50 border-r text-sm text-slate-600 min-w-[100px] justify-center">
-                          {selectedFlag && (
-                            <img
-                              src={selectedFlag}
-                              alt="flag"
-                              className="w-5 h-3 object-cover rounded-sm"
-                            />
-                          )}
-                          <span className="font-medium">
-                            {selectedDialCode || "+00"}
-                          </span>
-                        </div>
-                        <FormControl>
-                          <Input
-                            placeholder="00000 00000"
-                            className="border-none focus-visible:ring-0"
-                            {...field}
-                          />
-                        </FormControl>
-                      </div>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -313,11 +315,43 @@ export default function StudentDetailForm() {
                     </FormItem>
                   )}
                 />
+                {/* Contact Number with Flag/Code */}
+                <FormField
+                  control={form.control}
+                  name="phone"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Contact Number</FormLabel>
+                      <div className="flex rounded-md border border-input focus-within:ring-2 focus-within:ring-[#DC8916] overflow-hidden bg-white">
+                        <div className="flex items-center gap-2 px-3 bg-slate-50 border-r text-sm text-slate-600 min-w-[100px] justify-center">
+                          {selectedFlag && (
+                            <img
+                              src={selectedFlag}
+                              alt="flag"
+                              className="w-5 h-3 object-cover rounded-sm"
+                            />
+                          )}
+                          <span className="font-medium">
+                            {selectedDialCode || "+00"}
+                          </span>
+                        </div>
+                        <FormControl>
+                          <Input
+                            placeholder="00000 00000"
+                            className="border-none focus-visible:ring-0"
+                            {...field}
+                          />
+                        </FormControl>
+                      </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
 
               <Button
                 type="submit"
-                className="w-full py-6 text-lg font-semibold"
+                className="cursor-pointer w-full py-6 text-lg font-semibold"
                 style={{ backgroundColor: brandColor }}
               >
                 Save Profile Details
