@@ -37,8 +37,10 @@ const formSchema = z.object({
   gender: z.string().min(1, "Please select a gender"),
   phone: z
     .string()
-    .min(8, "Phone number must be at least 10 digits")
-    .max(12, "Phone number must be smaller than 12 digits"),
+    .trim()
+    .min(8, "contact is less than limit 8")
+    .max(16, "contact is exceeded limit 16")
+    .regex(/^\+?[0-9]+$/, "contact is not valid"),
   dob: z.string().min(1, "Date of birth is required"),
   country: z.string().min(1, "Please select a country"),
   state: z.string().min(1, "Please select a state"),
@@ -86,6 +88,7 @@ export default function StudentDetailForm() {
         console.error("Fetch error:", err);
       }
     };
+
     fetchData();
   }, []);
 
