@@ -19,6 +19,7 @@ const page = () => {
       );
 
       if (response.data.status) {
+        // console.log(response.data);
         router.push("/welcome");
       } else {
         router.push("/onobarding/details");
@@ -26,6 +27,7 @@ const page = () => {
     };
     checkUser();
   }, []);
+
   return (
     <div>
       <LoadingShield />
