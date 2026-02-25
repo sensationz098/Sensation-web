@@ -117,9 +117,8 @@ export default function StudentDetailForm() {
       phone: fullPhoneNumber,
     };
 
-    console.log("Final Submission to DB:", finalData);
+    console.log("Final Submission to DB:", finalData, user, user?.photoURL);
     try {
-      // 2. Send the POST request to your local API
       const response = await fetch(
         "http://localhost:5000/api/auth/create-profile",
         {
@@ -127,16 +126,25 @@ export default function StudentDetailForm() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(finalData),
+          body: JSON.stringify({
+            firebase_auth_id: user?.uid,
+            full_name: finalData.fullName,
+            gender: finalData.gender,
+            avatar_url: user?.photoURL,
+            contact: finalData.phone,
+            email: finalData.email,
+            date_of_birth: finalData.dob,
+            state: finalData.state,
+            country: finalData.country,
+          }),
         },
       );
-
+      const data = await response.json();
       if (response.ok) {
-        const result = await response.json();
-        console.log("Successfully saved to DB:", result);
+        console.log("Successfully saved to DB:", data);
         alert("Profile updated successfully!"); // You can replace this with a Shadcn Toast
       } else {
-        console.error("Failed to save profile", response);
+        console.error("Failed to save profile", data);
       }
     } catch (error) {
       console.error("Network error:", error);
@@ -216,8 +224,8 @@ export default function StudentDetailForm() {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="male">Male</SelectItem>
-                          <SelectItem value="female">Female</SelectItem>
+                          <SelectItem value="MALE">Male</SelectItem>
+                          <SelectItem value="FEMALE">Female</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />

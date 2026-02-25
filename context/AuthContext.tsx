@@ -32,8 +32,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const login = async () => {
     try {
-      const result = await signInWithPopup(auth, googleProvider);
-      console.log(result.user);
+      await signInWithPopup(auth, googleProvider);
+      // console.log(result.user);
       router.push("/details");
     } catch (error) {
       console.error("Login failed", error);
