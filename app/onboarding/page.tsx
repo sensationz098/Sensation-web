@@ -5,29 +5,19 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Spinner } from "@/components/ui/spinner";
 import LoadingShield from "@/components/ui/LoadingShield";
+import { getProfile } from "./actions/getProfile";
 
 const page = () => {
-  const { user } = useAuth();
   const router = useRouter();
+  const { user } = useAuth();
   useEffect(() => {
     const checkUser = async () => {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/get-profile",
-        {
-          id: user?.uid,
-        },
-      );
-
-      if (response.data.status) {
-        // console.log(response.data);
-        router.push("/welcome");
-      } else {
-        router.push("/onobarding/details");
+      if (user?.uid) {
+        await getProfile(user.uid, router);
       }
     };
     checkUser();
-  }, []);
-
+  }, [user]);
   return (
     <div>
       <LoadingShield />

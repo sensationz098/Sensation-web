@@ -9,7 +9,6 @@ import {
 } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-// import { cookies } from "next/headers";
 
 interface AuthContextType {
   user: User | null;

@@ -30,6 +30,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const formSchema = z.object({
   fullName: z.string().min(2, "Name must be at least 2 characters"),
@@ -56,7 +58,7 @@ export default function StudentDetailForm() {
   const [selectedDialCode, setSelectedDialCode] = useState("");
   const [selectedFlag, setSelectedFlag] = useState("");
   const [loading, setLoading] = useState(true);
-
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -145,9 +147,15 @@ export default function StudentDetailForm() {
       const data = await response.json();
       if (response.ok) {
         console.log("Successfully saved to DB:", data);
-        alert("Profile updated successfully!"); // You can replace this with a Shadcn Toast
+        alert("Profile updated successfully!");
+        console.log(finalData, finalData.country);
+        const result = await axios.post("/api/auth/session/set-country", {
+          country: finalData.country,
+        });
+        router.push("/welcome");
       } else {
         console.error("Failed to save profile", data);
+        alert("Failed to save profile");
       }
     } catch (error) {
       console.error("Network error:", error);
