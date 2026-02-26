@@ -11,6 +11,8 @@ import { Badge } from "@/components/ui/badge";
 import { LockKeyhole } from "lucide-react";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 const courses = [
   {
@@ -48,6 +50,18 @@ const courses = [
 const CourseCatalog = () => {
   const brandColor = "#DC8916";
   const { user, login, logout } = useAuth();
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    const isExpired = searchParams.get("session_expired");
+
+    if (isExpired === "true" && user) {
+      console.warn("Middleware detected expired session. Cleaning up...");
+      logout(); // This clears the Firebase state and UI
+
+      // Clean up the URL so the message doesn't stay there
+      window.history.replaceState({}, "", "/");
+    }
+  }, [searchParams, user, logout]);
   return (
     <div className="min-h-screen bg-slate-50 p-6 md:p-12 font-sans">
       {/* Top Navigation / Header */}
