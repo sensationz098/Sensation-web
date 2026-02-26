@@ -12,9 +12,7 @@ export default function WelcomeLayout({
     <html lang="en">
       <body>
         <Header />
-
         <main className="flex-1 pt-28 px-4">{children}</main>
-
         <Footer />
       </body>
     </html>

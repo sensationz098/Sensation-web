@@ -86,18 +86,16 @@ const Footer = () => {
               Get in Touch
             </h4>
             <div className="flex items-start gap-3 text-sm text-muted-foreground group">
-              <div className="p-2 rounded-full bg-white/5 group-hover:bg-[#DC8916]/10 transition-colors">
+              <div className=" rounded-full bg-white/5 group-hover:bg-[#DC8916]/10 transition-colors">
                 <Mail className="h-4 w-4 text-[#DC8916]" />
               </div>
-              <span className="mt-1.5">
-                support@sensationzperformingarts.com
-              </span>
+              <span className="">support@sensationzperformingarts.com</span>
             </div>
-            <div className="flex items-start gap-3 text-sm text-muted-foreground group">
-              <div className="p-2 rounded-full bg-white/5 group-hover:bg-[#DC8916]/10 transition-colors">
+            <div className="flex items-start  text-sm text-muted-foreground group">
+              <div className="pr-2 rounded-full bg-white/5 group-hover:bg-[#DC8916]/10 transition-colors">
                 <MapPin className="h-4 w-4 text-[#DC8916]" />
               </div>
-              <span className="mt-1.5">Delhi, India</span>
+              <span className="">Delhi, India</span>
             </div>
           </div>
         </div>
@@ -109,7 +107,7 @@ const Footer = () => {
           </p>
           <div className="flex gap-6 items-center">
             <span className="hover:text-foreground transition-colors cursor-default">
-              Built with Next.js
+              Built with ❤️
             </span>
             <div className="h-1 w-1 rounded-full bg-white/20" />
             <span className="hover:text-foreground transition-colors cursor-default">

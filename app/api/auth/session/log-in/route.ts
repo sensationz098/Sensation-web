@@ -14,7 +14,7 @@ export async function POST(req: Request) {
       httpOnly: true, // 🔐 Prevents XSS (Malicious scripts can't read this)
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 60 * 60, // 1 hour
+      maxAge: 60 * 60 * 30,
       path: "/",
     });
 
