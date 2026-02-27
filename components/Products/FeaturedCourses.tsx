@@ -1,9 +1,14 @@
 "use client";
 import React from "react";
 import { COURSES } from "@/data/courses";
+import { FeaturedType } from "@/types/FeaturedType";
+import Image from "next/image";
 
-export default function FeaturedCourses() {
-  const featured = COURSES.filter((c) => c.recommended).slice(0, 4);
+export default function FeaturedCourses({
+  featuredCourses,
+}: {
+  featuredCourses: FeaturedType[];
+}) {
   const brandOrange = "#DC8916";
 
   return (
@@ -15,12 +20,13 @@ export default function FeaturedCourses() {
         RECOMMENDED FOR YOU
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {featured.map((course) => (
+        {featuredCourses.map((course) => (
           <div
             key={course.id}
             className="relative group rounded-3xl overflow-hidden aspect-[4/5] bg-zinc-900 border border-white/10"
           >
-            <img
+            <Image
+              fill
               src={course.image_url}
               alt={course.title}
               className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-500"

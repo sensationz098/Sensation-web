@@ -13,6 +13,7 @@ import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
+import Image from "next/image";
 
 const courses = [
   {
@@ -129,7 +130,8 @@ const CourseCatalog = () => {
             >
               <div className="relative aspect-video overflow-hidden rounded-t-xl">
                 <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors z-10" />
-                <img
+                <Image
+                  fill
                   src={course.image}
                   alt={course.title}
                   className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"

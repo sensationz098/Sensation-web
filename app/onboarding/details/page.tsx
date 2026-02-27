@@ -32,6 +32,7 @@ import {
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import Image from "next/image";
 
 const formSchema = z.object({
   fullName: z.string().min(2, "Name must be at least 2 characters"),
@@ -344,7 +345,8 @@ export default function StudentDetailForm() {
                       <div className="flex rounded-md border border-input focus-within:ring-2 focus-within:ring-[#DC8916] overflow-hidden bg-white">
                         <div className="flex items-center gap-2 px-3 bg-slate-50 border-r text-sm text-slate-600 min-w-[100px] justify-center">
                           {selectedFlag && (
-                            <img
+                            <Image
+                              fill
                               src={selectedFlag}
                               alt="flag"
                               className="w-5 h-3 object-cover rounded-sm"

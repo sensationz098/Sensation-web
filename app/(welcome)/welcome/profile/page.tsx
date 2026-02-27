@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function ProfilePage() {
   const { user, logout } = useAuth();
@@ -87,7 +88,8 @@ export default function ProfilePage() {
                 >
                   <div className="h-full w-full rounded-full bg-slate-100 flex items-center justify-center overflow-hidden border border-slate-200">
                     {avatar_url ? (
-                      <img
+                      <Image
+                        fill
                         src={avatar_url}
                         alt={name || "User Profile"}
                         className="w-full h-full object-cover"
