@@ -5,5 +5,5 @@ export default async function getEnrolledCourses(id: string) {
   const response = await fetch(
     `${BASE_URL}/api/enroll/enroll-course/${id}`,
   ).then((res) => res.json());
-  return response;
+  return response.data.courses;
 }
