@@ -119,13 +119,12 @@ export default function CourseDetailView() {
                     </p>
                     <div className="mt-2">
                       <p className="text-2xl font-black text-slate-900 leading-none">
-                        {course.currency}
-                        {plan.discounted_price}
+                        {course.currency} {plan.price}
                       </p>
-                      <p className="text-[10px] text-slate-400 line-through font-bold mt-1">
+                      {/* <p className="text-[10px] text-slate-400 line-through font-bold mt-1">
                         {course.currency}
                         {plan.price}
-                      </p>
+                      </p> */}
                     </div>
                     {selectedPlanIndex === index && (
                       <CheckCircle2

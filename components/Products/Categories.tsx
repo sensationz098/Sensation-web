@@ -16,7 +16,6 @@ export default function Categories({
   const [activeTab, setActiveTab] = useState("Fitness");
   const brandOrange = "#DC8916";
 
-  // 1. Optimize: Prevent re-filtering on every minor re-render
   const filtered = useMemo(() => {
     return courses.filter((c) => c.category === activeTab);
   }, [activeTab]);
