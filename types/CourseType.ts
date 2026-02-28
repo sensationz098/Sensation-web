@@ -11,5 +11,5 @@ export interface CourseType {
   gst: number;
   recommended: boolean;
   days: string[];
-  teacher_name: string;
+  teacher_name: string[];
 }

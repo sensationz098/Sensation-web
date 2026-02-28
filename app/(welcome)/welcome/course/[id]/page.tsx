@@ -41,18 +41,22 @@ export default function CourseDetailView() {
     getDetails();
   }, [id]);
 
-  if (loading)
+  if (loading) {
     return (
       <div className="p-20 text-center animate-pulse text-slate-400 font-black italic">
         LOADING MASTERCLASS...........
       </div>
     );
-  if (!course)
-    return <div className="p-20 text-center font-bold">Course! not found.</div>;
+  }
 
+  if (!course) {
+    return <div className="p-20 text-center font-bold">Course not found.</div>;
+  }
+
+  // --- Calculations ---
   const currentPlan = course.duration[selectedPlanIndex];
   const basePrice = currentPlan?.discounted_price || currentPlan?.price || 0;
-  const gstAmount = (basePrice * (course.gst || 0)) / 100;
+  const gstAmount = (basePrice * (Number(course.gst) || 0)) / 100;
   const finalPrice = basePrice + gstAmount;
 
   const handleBuyNow = () => {
@@ -101,6 +105,7 @@ export default function CourseDetailView() {
                 <span className="w-10 h-[2px] bg-[#DC8916]" /> Choose Your
                 Membership
               </h3>
+
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {course.duration.map((plan: any, index: number) => (
                   <button
@@ -113,7 +118,11 @@ export default function CourseDetailView() {
                     }`}
                   >
                     <p
-                      className={`text-[10px] font-black uppercase tracking-tighter ${selectedPlanIndex === index ? "text-[#DC8916]" : "text-slate-400"}`}
+                      className={`text-[10px] font-black uppercase tracking-tighter ${
+                        selectedPlanIndex === index
+                          ? "text-[#DC8916]"
+                          : "text-slate-400"
+                      }`}
                     >
                       {plan.duration}
                     </p>
@@ -121,10 +130,6 @@ export default function CourseDetailView() {
                       <p className="text-2xl font-black text-slate-900 leading-none">
                         {course.currency} {plan.price}
                       </p>
-                      {/* <p className="text-[10px] text-slate-400 line-through font-bold mt-1">
-                        {course.currency}
-                        {plan.price}
-                      </p> */}
                     </div>
                     {selectedPlanIndex === index && (
                       <CheckCircle2
@@ -152,6 +157,7 @@ export default function CourseDetailView() {
                   </p>
                 </div>
               </div>
+
               <div className="p-8 rounded-[2.5rem] bg-slate-50 flex items-center gap-5 border border-slate-100">
                 <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-[#DC8916] shadow-sm">
                   <Calendar size={28} />
@@ -231,8 +237,7 @@ export default function CourseDetailView() {
             Plan: {currentPlan.duration}
           </p>
           <p className="text-2xl font-black text-slate-900">
-            {course.currency}
-            {finalPrice.toLocaleString()}
+            {course.currency} {finalPrice.toLocaleString()}
           </p>
         </div>
         <button
