@@ -49,8 +49,8 @@ export default function Categories({
 
       {/* 2. Optimize: Use a fixed grid height or key-based transitions if possible */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 transition-opacity duration-300">
-        {filtered.map((courses: CourseType) => (
-          <Link href={`/welcome/course/${courses.id}`}>
+        {filtered.map((courses: CourseType, i) => (
+          <Link key={i} href={`/welcome/course/${courses.id}`}>
             <div
               key={courses.id}
               className="bg-white border border-slate-100 rounded-[2.5rem] overflow-hidden group hover:border-[#DC8916]/50 hover:shadow-xl transition-all duration-300"
