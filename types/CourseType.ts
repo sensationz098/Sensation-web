@@ -12,4 +12,5 @@ export interface CourseType {
   recommended: boolean;
   days: string[];
   teacher_name: string;
+  duration: string;
 }
