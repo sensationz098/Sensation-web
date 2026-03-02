@@ -57,9 +57,7 @@ const CourseCatalog = () => {
 
     if (isExpired === "true" && user) {
       console.warn("Middleware detected expired session. Cleaning up...");
-      logout(); // This clears the Firebase state and UI
-
-      // Clean up the URL so the message doesn't stay there
+      logout();
       window.history.replaceState({}, "", "/");
     }
   }, [searchParams, user, logout]);

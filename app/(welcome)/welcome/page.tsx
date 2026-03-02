@@ -14,9 +14,8 @@ export default async function page() {
   const courses: CourseType[] = await getAllCourses();
   const categories: Category[] = await getAllCategories();
   const featuredCourses: FeaturedType[] = await getFeaturedCourses();
-  const discountCoupons: DiscountType[] = await getDiscountCoupons();
 
-  if (!courses || !categories || !featuredCourses || !discountCoupons)
+  if (!courses || !categories || !featuredCourses)
     return <div>Error fetching data</div>;
 
   return (

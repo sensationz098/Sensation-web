@@ -1,4 +1,5 @@
 export interface OtherCourseType {
+  duration: DurationType[];
   schedule: ScheduleType[];
   teacher: TeacherType[];
 }
@@ -12,4 +13,10 @@ export interface ScheduleType {
 export interface TeacherType {
   id: string;
   name: string;
+}
+
+export interface DurationType {
+  id: string;
+  duration: string;
+  price: number;
 }
