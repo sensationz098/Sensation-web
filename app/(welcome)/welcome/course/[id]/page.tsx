@@ -91,7 +91,6 @@ export default function CourseDetailView() {
     (s) => s.teacher_id === selectedTeacher?.id,
   );
   const handlePayment = async () => {
-    // const response = await createOrder();
     if (!user) return;
     paymentLogic({
       id: user.uid,

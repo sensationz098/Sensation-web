@@ -2,6 +2,7 @@ import getUserProfileDetails from "@/lib/user/getUserProfileDetails";
 import { describe } from "zod/v4/core";
 import calculateEndDate from "./calculateEndDate";
 import createOrder from "@/lib/payment/createOrder";
+import razorpayCreateOrder from "./razorpayCreateOrder";
 export interface DataType {
   contact: string;
   description: string;
@@ -56,7 +57,6 @@ const paymentLogic = async ({
     discount_amount: appliedDiscount,
     counsellor_id: counsellorId,
   };
-  const result = await createOrder(data);
-  console.log("SENDING PACKET: ", data);
+  razorpayCreateOrder(data);
 };
 export default paymentLogic;

@@ -10,5 +10,7 @@ export default async function createOrder(data: DataType) {
     body: JSON.stringify(data),
     next: { revalidate: 0 },
   }).then((res) => res.json());
-  console.log(response.data);
+  if (response.status) return response.data;
+  else return response.json({ success: false });
+  console.log("PAYMENT *********", response, response.data);
 }
