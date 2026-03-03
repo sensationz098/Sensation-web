@@ -1,6 +1,8 @@
+import { useCourseStore } from "@/store/useCourseStore";
 import { UserCheck } from "lucide-react";
 
-const SelectCounsellor = ({ setCounsellorId }: any) => {
+const SelectCounsellor = () => {
+  const { setCounsellorId } = useCourseStore();
   return (
     <section className="space-y-6">
       <h3 className="text-sm font-black uppercase tracking-widest text-slate-400 flex items-center gap-3">

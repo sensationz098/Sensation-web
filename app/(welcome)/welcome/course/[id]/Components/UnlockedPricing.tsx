@@ -1,19 +1,22 @@
+import { useCourseStore } from "@/store/useCourseStore";
 import { CreditCard } from "lucide-react";
 
 const UnlockedPricing = ({
-  course,
   basePrice,
   gstAmount,
-  couponInput,
-  setCouponInput,
   handleApplyCoupon,
-  appliedDiscount,
   finalPrice,
-  selectedTeacher,
   handlePayment,
-  selectedSchedule,
-  startDate,
 }: any) => {
+  const {
+    course,
+    couponInput,
+    setCouponInput,
+    appliedDiscount,
+    selectedTeacher,
+    selectedSchedule,
+    startDate,
+  } = useCourseStore();
   return (
     <div className="space-y-8 animate-in zoom-in-95 duration-500">
       <div className="pb-6 border-b border-zinc-800">
@@ -87,7 +90,7 @@ const UnlockedPricing = ({
         <div className="flex justify-between text-[10px] uppercase tracking-widest">
           <span className="text-zinc-500 font-black">Mentor</span>
           <span className="text-[#DC8916] font-black">
-            {selectedTeacher.name}
+            {selectedTeacher?.name}
           </span>
         </div>
         <div className="flex justify-between text-[10px] uppercase tracking-widest">

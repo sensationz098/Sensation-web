@@ -1,10 +1,8 @@
+import { useCourseStore } from "@/store/useCourseStore";
 import { Lock } from "lucide-react";
 
-export default function LockedPricing({
-  selectedTeacher,
-  selectedSchedule,
-  startDate,
-}: any) {
+export default function LockedPricing() {
+  const { selectedTeacher, selectedSchedule, startDate } = useCourseStore();
   return (
     <div className="py-12 flex flex-col items-center text-center space-y-6">
       <div className="w-20 h-20 bg-zinc-800 rounded-[2rem] flex items-center justify-center text-zinc-600">

@@ -1,13 +1,15 @@
+import { useCourseStore } from "@/store/useCourseStore";
 import { CheckCircle2, ChevronDown, User } from "lucide-react";
 
-const SelectTeacher = ({
-  isMentorOpen,
-  setIsMentorOpen,
-  selectedTeacher,
-  otherDetails,
-  setSelectedTeacher,
-  setSelectedSchedule,
-}: any) => {
+const SelectTeacher = () => {
+  const {
+    isMentorOpen,
+    setIsMentorOpen,
+    selectedTeacher,
+    otherDetails,
+    setSelectedTeacher,
+    setSelectedSchedule,
+  } = useCourseStore();
   return (
     <section className="space-y-6">
       <h3 className="text-sm font-black uppercase tracking-widest text-slate-400 flex items-center gap-3">

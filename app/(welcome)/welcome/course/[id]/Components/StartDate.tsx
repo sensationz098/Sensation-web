@@ -1,6 +1,8 @@
+import { useCourseStore } from "@/store/useCourseStore";
 import { CalendarDays } from "lucide-react";
 
-const StartDate = ({ setStartDate }: any) => {
+const StartDate = () => {
+  const { setStartDate } = useCourseStore();
   return (
     <section className="space-y-6">
       <h3 className="text-sm font-black uppercase tracking-widest text-slate-400 flex items-center gap-3">

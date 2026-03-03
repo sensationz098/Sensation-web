@@ -1,9 +1,12 @@
-const Timings = ({
-  selectedTeacher,
-  availableSchedules,
-  setSelectedSchedule,
-  selectedSchedule,
-}: any) => {
+import { useCourseStore } from "@/store/useCourseStore";
+
+const Timings = () => {
+  const {
+    selectedTeacher,
+    availableSchedules,
+    setSelectedSchedule,
+    selectedSchedule,
+  } = useCourseStore();
   return (
     <div>
       {selectedTeacher && (
