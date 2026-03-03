@@ -3,11 +3,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import getSpecificCourse from "@/lib/courses/getSpecificCourse";
 import getOtherCourseDetails from "@/lib/courses/getOtherCourseDetails";
-import {
-  OtherCourseType,
-  TeacherType,
-  ScheduleType,
-} from "@/types/OtherCourseType";
 import createOrder from "@/lib/payment/createOrder";
 import discountLogic from "./action/discountLogic";
 import Hero from "./Components/Hero";
@@ -21,11 +16,16 @@ import UnlockedPricing from "./Components/UnlockedPricing";
 import LockedPricing from "./Components/LockedPricing";
 import { CourseType } from "@/types/CourseType";
 import { useCourseStore } from "@/store/useCourseStore";
+import { getProfile } from "@/app/onboarding/actions/getProfile";
+import { useAuth } from "@/context/AuthContext";
+import getUserProfileDetails from "@/lib/user/getUserProfileDetails";
+import paymentLogic from "./action/paymentLogic";
 
 export default function CourseDetailView() {
   const params = useParams();
   const id = params.id as string;
   const {
+    discountId,
     course,
     setCourse,
     isMentorOpen,
@@ -51,7 +51,6 @@ export default function CourseDetailView() {
     selectedSchedule,
     setSelectedSchedule,
   } = useCourseStore();
-
   useEffect(() => {
     const fetchAllData = async () => {
       if (!id) return;
@@ -71,6 +70,7 @@ export default function CourseDetailView() {
     };
     fetchAllData();
   }, [id]);
+  const { user } = useAuth();
 
   if (loading)
     return (
@@ -91,7 +91,20 @@ export default function CourseDetailView() {
     (s) => s.teacher_id === selectedTeacher?.id,
   );
   const handlePayment = async () => {
-    const response = await createOrder();
+    // const response = await createOrder();
+    if (!user) return;
+    paymentLogic({
+      id: user.uid,
+      course,
+      startDate,
+      selectedSchedule,
+      selectedTeacher,
+      appliedDiscount,
+      counsellorId,
+      discountId,
+      currentPlan,
+      basePrice,
+    });
   };
 
   const handleApplyCoupon = async () => {
@@ -111,7 +124,7 @@ export default function CourseDetailView() {
           <Heading category={course.category} title={course.title} />
 
           <SelectTeacher />
-          <Timings />
+          <Timings availableSchedules={availableSchedules} />
 
           <SelectPlan />
           <StartDate />

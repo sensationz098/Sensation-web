@@ -1,9 +1,9 @@
 import { useCourseStore } from "@/store/useCourseStore";
 
-const Timings = () => {
+const Timings = ({ availableSchedules }: any) => {
   const {
     selectedTeacher,
-    availableSchedules,
+
     setSelectedSchedule,
     selectedSchedule,
   } = useCourseStore();

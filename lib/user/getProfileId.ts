@@ -5,7 +5,7 @@ export default async function getProfileId(id: string) {
 
   try {
     const response = await fetch(`${BASE_URL}/api/auth/get-profile`, {
-      method: "POST", // 👈 CRITICAL: Must be POST to send a body
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
@@ -18,7 +18,7 @@ export default async function getProfileId(id: string) {
     }
 
     const result = await response.json();
-    console.log("Profile Data received:", result.data.id);
+    // console.log("Profile Data received:", result.data.id);
     return result.data.id;
   } catch (error) {
     console.error("Error in getProfileId:", error);

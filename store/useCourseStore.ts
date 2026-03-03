@@ -19,7 +19,8 @@ interface CourseState {
   appliedDiscount: number;
   couponError: string | undefined;
   isMentorOpen: boolean;
-  availableSchedules: ScheduleType[] | null; // Typed this for you
+  discountId: string | null;
+  // availableSchedules: ScheduleType[] | null;
 
   // Actions
   setCourse: (course: CourseType | null) => void;
@@ -34,7 +35,8 @@ interface CourseState {
   setAppliedDiscount: (discount: number) => void;
   setCouponError: (error: string | undefined) => void;
   setIsMentorOpen: (isOpen: boolean) => void;
-  setAvailableSchedules: (schedules: ScheduleType[] | null) => void;
+  setDiscountId: (id: string | null) => void;
+  // setAvailableSchedules: (schedules: ScheduleType[] | null) => void;
   resetStore: () => void;
 }
 
@@ -51,7 +53,8 @@ const initialState = {
   appliedDiscount: 0,
   couponError: undefined,
   isMentorOpen: false,
-  availableSchedules: null,
+  discountId: null,
+  // availableSchedules: null,
 };
 
 export const useCourseStore = create<CourseState>((set) => ({
@@ -70,7 +73,6 @@ export const useCourseStore = create<CourseState>((set) => ({
   setAppliedDiscount: (appliedDiscount) => set({ appliedDiscount }),
   setCouponError: (couponError) => set({ couponError }),
   setIsMentorOpen: (isMentorOpen) => set({ isMentorOpen }),
-  setAvailableSchedules: (availableSchedules) => set({ availableSchedules }),
-
+  setDiscountId: (discountId) => set({ discountId }),
   resetStore: () => set(initialState),
 }));
