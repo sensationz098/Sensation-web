@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import {
   Settings,
@@ -16,27 +16,36 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
+import { BASE_URL } from "@/config/api";
+import getProfileId from "@/lib/user/getProfileId";
+import getLoyaltyPoints from "@/lib/user/getLoyaltyPoints";
 
 export const StudentProfile = () => {
   const { user, logout } = useAuth();
   const brandOrange = "#DC8916";
-
+  const [loyaltyPoints, setLoyaltyPoints] = useState(0);
   if (!user)
     return <div className="p-20 text-center text-zinc-500">Loading...</div>;
 
-  const name = user?.displayName || "Deepanshu Pokhriyal";
+  const name = user?.displayName || "";
   const avatar_url = user?.photoURL;
-  const email = user?.email || "deepanshu@gmail.com";
-  const loyalty_points = 2;
+  const email = user?.email || "";
+
   useEffect(() => {
-    console.log(avatar_url);
-  }, [avatar_url]);
+    const getDetails = async () => {
+      const userId = await getProfileId(user?.uid);
+      const loyalty_points = await getLoyaltyPoints(userId);
+      if (loyalty_points === null) setLoyaltyPoints(0);
+      else setLoyaltyPoints(loyalty_points);
+    };
+    getDetails();
+  }, []);
   const menuItems = [
     {
       icon: <Settings size={20} />,
       label: "Edit Profile",
       desc: "Manage your personal details",
-      link: "/welcome/edit-profile",
+      link: "/welcome/profile/edit-profile",
     },
     {
       icon: <CreditCard size={20} />,
@@ -59,14 +68,11 @@ export const StudentProfile = () => {
   ];
 
   return (
-    // Changed bg-black to a very soft zinc/slate gray
     <main className="min-h-screen  text-slate-900  px-4 md:px-8 relative overflow-hidden">
-      {/* 1. SOFT MESH GRADIENT (Keeps the 'Artistic' vibe without the darkness) */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#DC8916]/10 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-100 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative z-10">
-        {/* Header */}
         <div className="mb-12">
           <h1 className="text-5xl font-black italic uppercase tracking-tighter text-slate-900">
             MY <span style={{ color: brandOrange }}>PROFILE</span>
@@ -104,9 +110,9 @@ export const StudentProfile = () => {
                     )}
                   </div>
                 </div>
-                <button className="absolute bottom-1 right-1 bg-white p-2.5 rounded-full border border-slate-200 shadow-md hover:scale-110 transition-transform">
+                {/* <button className="absolute bottom-1 right-1 bg-white p-2.5 rounded-full border border-slate-200 shadow-md hover:scale-110 transition-transform">
                   <Camera size={16} style={{ color: brandOrange }} />
-                </button>
+                </button> */}
               </div>
 
               <h2 className="text-2xl font-bold text-slate-800">{name}</h2>
@@ -125,7 +131,7 @@ export const StudentProfile = () => {
                     <p className="text-[10px] uppercase font-black tracking-widest opacity-80">
                       Loyalty Points
                     </p>
-                    <p className="text-3xl font-black">{loyalty_points}</p>
+                    <p className="text-3xl font-black">{loyaltyPoints}</p>
                   </div>
                 </div>
               </div>

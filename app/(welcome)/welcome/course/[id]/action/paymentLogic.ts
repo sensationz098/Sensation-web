@@ -38,7 +38,7 @@ const paymentLogic = async ({
     startDate,
     currentPlan.duration,
   ).toISOString();
-  console.log("DATE ARE: ", startDate, end_date);
+  // console.log("DATE ARE: ", startDate, end_date);
   const data: DataType = {
     contact: response.contact,
     description: course.description,

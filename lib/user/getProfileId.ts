@@ -1,7 +1,7 @@
 import { BASE_URL } from "@/config/api";
 
 export default async function getProfileId(id: string) {
-  console.log("Fetching Profile for ID: ", id);
+  // console.log("Fetching Profile for ID: ", id);
 
   try {
     const response = await fetch(`${BASE_URL}/api/auth/get-profile`, {
