@@ -63,9 +63,13 @@ const Page = () => {
 
       <div className="space-y-3">
         {loading ? (
-          <div>Loading...</div>
+          <div className="py-10 text-center text-slate-400">Loading...</div>
+        ) : transactions === null || transactions.length === 0 ? (
+          <div className="py-10 text-center text-slate-400">
+            No transactions found.
+          </div>
         ) : (
-          transactions?.map((tx) => (
+          transactions.map((tx) => (
             <div
               key={tx.id}
               onClick={() => handleSpecificTransaction(tx.id)}

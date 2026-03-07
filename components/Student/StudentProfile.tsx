@@ -19,11 +19,14 @@ import Image from "next/image";
 import { BASE_URL } from "@/config/api";
 import getProfileId from "@/lib/user/getProfileId";
 import getLoyaltyPoints from "@/lib/user/getLoyaltyPoints";
+import { LoyaltyPointsObject } from "@/types/LoyaltyPoints";
+import { menuItems } from "@/data/menuItems";
 
 export const StudentProfile = () => {
   const { user, logout } = useAuth();
   const brandOrange = "#DC8916";
-  const [loyaltyPoints, setLoyaltyPoints] = useState(0);
+  const [loyaltyPoints, setLoyaltyPoints] =
+    useState<LoyaltyPointsObject | null>(null);
   const [isMounted, setIsMounted] = useState(false);
   if (!user)
     return <div className="p-20 text-center text-zinc-500">Loading...</div>;
@@ -37,37 +40,11 @@ export const StudentProfile = () => {
     const getDetails = async () => {
       const userId = await getProfileId(user?.uid);
       const loyalty_points = await getLoyaltyPoints(userId);
-      if (loyalty_points === null) setLoyaltyPoints(0);
+      if (loyalty_points === null) setLoyaltyPoints(null);
       else setLoyaltyPoints(loyalty_points);
     };
     getDetails();
   }, []);
-  const menuItems = [
-    {
-      icon: <Settings size={20} />,
-      label: "Edit Profile",
-      desc: "Manage your personal details",
-      link: "/welcome/profile/edit-profile",
-    },
-    {
-      icon: <CreditCard size={20} />,
-      label: "View Transactions",
-      desc: "Check your course purchases",
-      link: "/welcome/transactions",
-    },
-    {
-      icon: <Info size={20} />,
-      label: "About Us",
-      desc: "Learn about Sensationz Performing Arts",
-      link: "/welcome/about-us",
-    },
-    {
-      icon: <PhoneCall size={20} />,
-      label: "Contact Us",
-      desc: "Get in touch with our support team",
-      link: "/welcome/contact-us",
-    },
-  ];
 
   return (
     <main className="min-h-screen  text-slate-900  px-4 md:px-8 relative overflow-hidden">
@@ -133,7 +110,9 @@ export const StudentProfile = () => {
                     <p className="text-[10px] uppercase font-black tracking-widest opacity-80">
                       Loyalty Points
                     </p>
-                    {/* <p className="text-3xl font-black">{loyaltyPoints}</p> */}
+                    <p className="text-3xl font-black">
+                      {loyaltyPoints ? loyaltyPoints.total : 0}
+                    </p>
                   </div>
                 </div>
               </div>
