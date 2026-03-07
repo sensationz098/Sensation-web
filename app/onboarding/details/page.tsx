@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -96,7 +95,9 @@ export default function StudentDetailForm() {
   }, []);
 
   const onCountryChange = (countryName: string) => {
+    console.log("inside onchange");
     form.setValue("country", countryName);
+    console.log("country name", countryName);
     form.setValue("state", ""); // Reset state on country change
 
     const countryObj = allCountries.find((c) => c.name === countryName);
@@ -346,7 +347,8 @@ export default function StudentDetailForm() {
                         <div className="flex items-center gap-2 px-3 bg-slate-50 border-r text-sm text-slate-600 min-w-[100px] justify-center">
                           {selectedFlag && (
                             <Image
-                              fill
+                              width={10}
+                              height={10}
                               src={selectedFlag}
                               alt="flag"
                               className="w-5 h-3 object-cover rounded-sm"

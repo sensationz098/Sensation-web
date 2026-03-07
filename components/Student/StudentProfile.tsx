@@ -24,6 +24,7 @@ export const StudentProfile = () => {
   const { user, logout } = useAuth();
   const brandOrange = "#DC8916";
   const [loyaltyPoints, setLoyaltyPoints] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
   if (!user)
     return <div className="p-20 text-center text-zinc-500">Loading...</div>;
 
@@ -32,6 +33,7 @@ export const StudentProfile = () => {
   const email = user?.email || "";
 
   useEffect(() => {
+    setIsMounted(true);
     const getDetails = async () => {
       const userId = await getProfileId(user?.uid);
       const loyalty_points = await getLoyaltyPoints(userId);
@@ -131,7 +133,7 @@ export const StudentProfile = () => {
                     <p className="text-[10px] uppercase font-black tracking-widest opacity-80">
                       Loyalty Points
                     </p>
-                    <p className="text-3xl font-black">{loyaltyPoints}</p>
+                    {/* <p className="text-3xl font-black">{loyaltyPoints}</p> */}
                   </div>
                 </div>
               </div>
@@ -149,11 +151,8 @@ export const StudentProfile = () => {
           {/* MENU ITEMS (Light Glass) */}
           <div className="lg:col-span-8 space-y-4">
             {menuItems.map((item, i) => (
-              <Link href={item.link}>
-                <button
-                  key={i}
-                  className="cursor-pointer w-full flex items-center justify-between p-6 rounded-[2.5rem] bg-white border border-slate-100 hover:border-[#DC8916]/40 hover:shadow-lg hover:shadow-slate-200/50 transition-all duration-300 group"
-                >
+              <Link key={i} href={item.link}>
+                <button className="cursor-pointer w-full flex items-center justify-between p-6 rounded-[2.5rem] bg-white border border-slate-100 hover:border-[#DC8916]/40 hover:shadow-lg hover:shadow-slate-200/50 transition-all duration-300 group">
                   <div className="flex items-center gap-6">
                     <div className="p-4 rounded-2xl bg-slate-50 text-slate-400 group-hover:text-[#DC8916] group-hover:bg-[#DC8916]/5 transition-all duration-300">
                       {item.icon}

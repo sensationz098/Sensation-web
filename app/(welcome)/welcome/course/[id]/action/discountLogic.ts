@@ -7,7 +7,7 @@ export default async function discountLogic(
   finalPrice: number,
   setCouponError: any,
 ) {
-  const { setDiscountId } = useCourseStore();
+  // const { setDiscountId } = useCourseStore();
   const discountCoupons: DiscountType[] = await getDiscountCoupons();
   const filter = discountCoupons.filter(
     (d) => d.coupon_code === couponInput.toUpperCase(),
@@ -24,6 +24,6 @@ export default async function discountLogic(
 
     return 0;
   }
-  setDiscountId(filter[0].id);
+  // setDiscountId(filter[0].id);
   return filter[0].discount_amount;
 }
