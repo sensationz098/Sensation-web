@@ -1,9 +1,17 @@
 "use client";
 import { TransactionCard } from "@/components/Products/TransactionCard";
+import { TransactionDetailContent } from "@/components/Products/TransactionDetailContent";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { useAuth } from "@/context/AuthContext";
 import getAllTransactions from "@/lib/user/getAllTransactions";
 import getProfileId from "@/lib/user/getProfileId";
 import getSpecificTransaction from "@/lib/user/getSpecificTransaction";
+import { SpecificTransactionType } from "@/types/SpecificTransactionType";
 import { TransactionType } from "@/types/TransactionType";
 import { useEffect, useState } from "react";
 
@@ -14,7 +22,9 @@ const Page = () => {
     null,
   );
   const [loading, setLoading] = useState(true);
-
+  const [specificTransaction, setSpecificTransaction] =
+    useState<SpecificTransactionType | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
     const fetchDetails = async () => {
       if (!user?.uid) return;
@@ -35,30 +45,56 @@ const Page = () => {
   }, [user?.uid]);
 
   if (!user) return <div className="p-20 text-center">Not authenticated!</div>;
+  const handleSpecificTransaction = async (id: string) => {
+    try {
+      const response = await getSpecificTransaction(id);
+      setSpecificTransaction(response);
+      setIsModalOpen(true);
+    } catch (err) {
+      console.error("Error loading transaction details", err);
+    }
+  };
+
+  if (!user) return <div className="p-20 text-center">Not authenticated!</div>;
 
   return (
     <div className="max-w-4xl mx-auto space-y-4 py-8 px-4">
-      <div className="mb-8">
-        <h2 className="text-3xl font-black italic uppercase tracking-tighter text-slate-900">
-          Recent <span className="text-[#DC8916]">Transactions</span>
-        </h2>
+      {/* ... Header Section */}
+
+      <div className="space-y-3">
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          transactions?.map((tx) => (
+            <div
+              key={tx.id}
+              onClick={() => handleSpecificTransaction(tx.id)}
+              className="cursor-pointer transition-transform active:scale-[0.98]"
+            >
+              <TransactionCard transaction={tx} />
+            </div>
+          ))
+        )}
       </div>
 
-      {loading ? (
-        <div className="text-center py-20 text-slate-400 italic">
-          Loading your history...
-        </div>
-      ) : transactions && transactions.length > 0 ? (
-        transactions.map((tx) => (
-          <button onClick={() => getSpecificTransaction(tx.id)}>
-            <TransactionCard key={tx.id} transaction={tx} />
-          </button>
-        ))
-      ) : (
-        <div className="text-center py-20 bg-white rounded-[3rem] border border-dashed border-slate-200">
-          <p className="text-slate-400">No transactions found.</p>
-        </div>
-      )}
+      {/* MODAL / DIALOG */}
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogContent className="sm:max-w-[500px] rounded-[2rem] border-none shadow-2xl">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-black italic uppercase tracking-tighter">
+              Transaction <span className="text-[#DC8916]">Details</span>
+            </DialogTitle>
+          </DialogHeader>
+
+          {specificTransaction ? (
+            <TransactionDetailContent data={specificTransaction} />
+          ) : (
+            <div className="py-10 text-center text-slate-400">
+              Loading details...
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
