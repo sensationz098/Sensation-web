@@ -6,6 +6,7 @@ export default async function discountLogic(
   couponInput: string,
   finalPrice: number,
   setCouponError: any,
+  setDiscountId: any,
 ) {
   // const { setDiscountId } = useCourseStore();
   const discountCoupons: DiscountType[] = await getDiscountCoupons();

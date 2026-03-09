@@ -8,6 +8,7 @@ export interface ScheduleType {
   id: string;
   teacher_id: string;
   timing: string;
+  days: string[];
 }
 
 export interface TeacherType {
