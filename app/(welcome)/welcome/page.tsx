@@ -1,3 +1,4 @@
+import ChatBot from "@/components/Home/ChatBot";
 import Categories from "@/components/Products/Categories";
 import ExploreAll from "@/components/Products/ExploreAll";
 import FeaturedCourses from "@/components/Products/FeaturedCourses";
@@ -23,6 +24,7 @@ export default async function page() {
       <Categories categories={categories} courses={courses} />
       <FeaturedCourses featuredCourses={featuredCourses} />
       <ExploreAll />
+      <ChatBot />
     </div>
   );
 }
