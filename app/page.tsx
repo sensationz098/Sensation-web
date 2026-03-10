@@ -120,8 +120,8 @@ const CourseCatalog = () => {
 
       {/* Course Grid */}
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
-        {courses.map((course) => (
-          <Link href={"/login"}>
+        {courses.map((course, i) => (
+          <Link key={i} href={"/login"}>
             <Card
               key={course.id}
               className="cursor-pointer group border-none shadow-md hover:shadow-2xl transition-all duration-300 bg-white"

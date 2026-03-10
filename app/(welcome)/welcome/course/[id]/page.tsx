@@ -189,6 +189,7 @@ export default function CourseDetailView() {
             </div>
           </section>
 
+          {/* END */}
           {selectedSchedule && (
             <section className="space-y-6 animate-in fade-in slide-in-from-top-4">
               <h3 className="text-sm font-black uppercase tracking-widest text-slate-400 flex items-center gap-3">

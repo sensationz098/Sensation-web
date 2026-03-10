@@ -4,14 +4,14 @@ export interface CourseType {
   description: string;
   image_url: string;
   category: string;
-  status: boolean;
+  // status: boolean;
   country: string;
   currency: string;
   price: number;
-  gst: number;
-  recommended: boolean;
-  days: string[];
-  teacher_name: string;
+  // gst: number;
+  // recommended: boolean;
+  // days: string[];
+  // teacher_name: string;
   duration: string[];
-  teacher_id: string;
+  // teacher_id: string;
 }
