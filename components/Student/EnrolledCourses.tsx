@@ -81,8 +81,8 @@ export default function EnrolledCourses({
                         Days
                       </p>
                       <p className="text-sm font-bold text-slate-700">
-                        {item.course_days.length > 0
-                          ? item.course_days.join(", ")
+                        {item.class_days.length > 0
+                          ? item.class_days.join(", ")
                           : "Check Portal"}
                       </p>
                     </div>

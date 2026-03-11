@@ -32,6 +32,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import Image from "next/image";
+import { BASE_URL } from "@/config/api";
 
 const formSchema = z.object({
   fullName: z.string().min(2, "Name must be at least 2 characters"),
@@ -126,26 +127,23 @@ export default function StudentDetailForm() {
 
     console.log("Final Submission to DB:", finalData, user, user?.photoURL);
     try {
-      const response = await fetch(
-        "http://localhost:5000/api/auth/create-profile",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            firebase_auth_id: user?.uid,
-            full_name: finalData.fullName,
-            gender: finalData.gender,
-            avatar_url: user?.photoURL,
-            contact: finalData.phone,
-            email: finalData.email,
-            date_of_birth: finalData.dob,
-            state: finalData.state,
-            country: finalData.country,
-          }),
+      const response = await fetch(`${BASE_URL}/api/auth/create-profile`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify({
+          firebase_auth_id: user?.uid,
+          full_name: finalData.fullName,
+          gender: finalData.gender,
+          avatar_url: user?.photoURL,
+          contact: finalData.phone,
+          email: finalData.email,
+          date_of_birth: finalData.dob,
+          state: finalData.state,
+          country: finalData.country,
+        }),
+      });
       const data = await response.json();
       if (response.ok) {
         console.log("Successfully saved to DB:", data);

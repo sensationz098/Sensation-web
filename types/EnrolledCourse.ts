@@ -3,7 +3,7 @@ export interface EnrolledCourse {
   start_date: string;
   end_date: string;
   course_title: string | null;
-  course_days: string[];
+  class_days: string[];
   course_image_url: string | null;
   teacher_full_name: string | null;
   schedule_meeting_link: string | null;
