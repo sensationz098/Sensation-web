@@ -9,8 +9,8 @@ export default function CourseCard({ course }: { course: CourseType }) {
   const brandOrange = "#DC8916";
 
   // Logic: Final Price calculation (Base + GST)
-  const finalPrice = course.price + (course.price * course.gst) / 100;
-
+  // const finalPrice = course.price + (course.price * course.gst) / 100;
+  const finalPrice = course.price;
   return (
     <div className="group relative w-full bg-white border border-slate-100 rounded-[3rem] overflow-hidden transition-all duration-500 hover:shadow-[0_40px_80px_-20px_rgba(220,137,22,0.2)] hover:-translate-y-3">
       {/* --- Image Section --- */}
@@ -26,11 +26,11 @@ export default function CourseCard({ course }: { course: CourseType }) {
           <span className="px-4 py-1.5 rounded-full bg-black/30 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest border border-white/10">
             {course.category}
           </span>
-          {course.recommended && (
+          {/* {course.recommended && (
             <div className="bg-[#DC8916] p-2 rounded-full shadow-xl border border-white/20">
               <Star size={12} fill="white" color="white" />
             </div>
-          )}
+          )} */}
         </div>
 
         {/* Dynamic Price Tag */}
@@ -52,7 +52,7 @@ export default function CourseCard({ course }: { course: CourseType }) {
         {/* Schedule & Location Row */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex gap-1.5">
-            {course.days.map((day) => (
+            {course.duration.map((day) => (
               <span
                 key={day}
                 className="text-[10px] font-bold px-2 py-1 rounded-md bg-slate-50 text-slate-400 border border-slate-100 uppercase"
@@ -87,9 +87,9 @@ export default function CourseCard({ course }: { course: CourseType }) {
               <p className="text-[9px] uppercase font-black text-slate-300 tracking-[0.2em] mb-0.5">
                 Expert Mentor
               </p>
-              <p className="text-sm font-black text-slate-700">
+              {/* <p className="text-sm font-black text-slate-700">
                 {course.teacher_name}
-              </p>
+              </p> */}
             </div>
           </div>
 

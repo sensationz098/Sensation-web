@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useMemo } from "react";
-import { COURSES } from "@/data/courses";
 import { Category } from "@/types/CategoryType";
 import { CourseType } from "@/types/CourseType";
 import Image from "next/image";
@@ -74,9 +73,9 @@ export default function Categories({
                   {courses.description}
                 </p>
                 <div className="flex justify-between items-center pt-4 border-t border-slate-50">
-                  <span className="text-xs font-bold text-[#DC8916]">
+                  {/* <span className="text-xs font-bold text-[#DC8916]">
                     {courses.teacher_name}
-                  </span>
+                  </span> */}
                   <button
                     className="px-5 py-2 rounded-xl text-white text-xs font-bold transition-transform active:scale-95 hover:opacity-90"
                     style={{ backgroundColor: brandOrange }}
