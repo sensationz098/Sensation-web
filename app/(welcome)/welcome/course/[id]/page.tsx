@@ -26,7 +26,7 @@ export default function CourseDetailView() {
   const [isDaysOpen, setIsDaysOpen] = useState(false);
   const [isMentorOpen, setIsMentorOpen] = useState(false);
   const [selectedDay, setSelectedDay] = useState("");
-
+  const [scheduleId, setScheduleId] = useState("");
   const {
     course,
     setCourse,
@@ -96,12 +96,14 @@ export default function CourseDetailView() {
   const finalPrice = basePrice + gstAmount - appliedDiscount;
 
   const handlePayment = async () => {
+    console.log("SCHEDULE ID: ", scheduleId);
     if (!user) return;
     paymentLogic({
       id: user.uid,
       course,
       startDate,
       selectedSchedule,
+      schedule_id: scheduleId,
       selectedTeacher,
       appliedDiscount,
       counsellorId,
@@ -167,18 +169,19 @@ export default function CourseDetailView() {
               {isTimingOpen && (
                 <div className="absolute top-full left-0 w-full mt-3 bg-white border border-slate-100 rounded-[2.5rem] shadow-2xl z-50 overflow-hidden animate-in fade-in zoom-in-95">
                   <div className="p-2 max-h-64 overflow-y-auto">
-                    {uniqueTimings.map((t) => (
+                    {otherDetails?.schedule.map((t) => (
                       <div
-                        key={t}
+                        key={t.id}
                         onClick={() => {
-                          setSelectedSchedule(t as any);
+                          setSelectedSchedule(t.timing as any);
+                          setScheduleId(t.id);
                           setSelectedDay("");
                           setSelectedTeacher(null);
                           setIsTimingOpen(false);
                         }}
                       >
                         <span className="text-sm font-bold uppercase tracking-widest">
-                          {t}
+                          {t.timing}
                         </span>
                         {/* {selectedSchedule === t && <CheckCircle2 size={16} />} */}
                       </div>

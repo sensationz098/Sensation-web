@@ -94,10 +94,10 @@ const UnlockedPricing = ({
           </span>
         </div>
         <div className="flex justify-between text-[10px] uppercase tracking-widest">
-          <span className="text-zinc-500 font-black">Slot</span>
+          {/* <span className="text-zinc-500 font-black">Slot</span>
           <span className="text-[#DC8916] font-black">
             {selectedSchedule?.timing}
-          </span>
+          </span> */}
         </div>
 
         <div className="flex justify-between text-[10px] uppercase tracking-widest">
