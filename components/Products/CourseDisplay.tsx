@@ -89,14 +89,17 @@ export default function CourseDisplay({
                   <div className="p-8">
                     <div className="flex items-center justify-between mb-6">
                       <div className="flex gap-1.5">
-                        {course.duration.map((day) => (
+                        {/* {course.duration.map((day) => (
                           <span
                             key={day}
                             className="text-[9px] font-bold px-2 py-1 rounded-md bg-slate-50 text-slate-400 border border-slate-100 uppercase"
                           >
                             {day.substring(0, 3)}
                           </span>
-                        ))}
+                        ))} */}
+                        <span className="text-[9px] font-bold px-2 py-1 rounded-md bg-slate-50 text-slate-400 border border-slate-100 uppercase">
+                          {course.duration}
+                        </span>
                       </div>
                       <div className="flex items-center gap-1 text-slate-300">
                         <Globe size={12} />
