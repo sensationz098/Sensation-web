@@ -13,8 +13,8 @@ import StartDate from "../../../../../components/SpecificProduct/StartDate";
 import SelectCounsellor from "../../../../../components/SpecificProduct/SelectCounsellor";
 import UnlockedPricing from "../../../../../components/SpecificProduct/UnlockedPricing";
 import LockedPricing from "../../../../../components/SpecificProduct/LockedPricing";
-import paymentLogic from "@/lib/specific-product/paymentLogic";
-import discountLogic from "@/lib/specific-product/discountLogic";
+import paymentLogic from "./actions/paymentLogic";
+import discountLogic from "./actions/discountLogic";
 
 export default function CourseDetailView() {
   const params = useParams();

@@ -6,7 +6,6 @@ import { EnrolledCourse } from "@/types/EnrolledCourse";
 import EnrolledCourses from "@/components/Student/EnrolledCourses";
 import getProfileId from "@/lib/user/getProfileId";
 import { Button } from "@/components/ui/button";
-import handleMigration from "../../../../lib/migration/handleMigration";
 import Link from "next/link";
 
 const EnrollmentPage = () => {

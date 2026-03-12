@@ -1,4 +1,5 @@
 import { CourseType } from "@/types/CourseType";
+import { MigrationCourseType } from "@/types/MigrationCourseType";
 import {
   OtherCourseType,
   ScheduleType,
@@ -20,6 +21,7 @@ interface CourseState {
   couponError: string | undefined;
   isMentorOpen: boolean;
   discountId: string | null;
+  migrationCourse: MigrationCourseType[] | null;
   // availableSchedules: ScheduleType[] | null;
 
   // Actions
@@ -36,6 +38,7 @@ interface CourseState {
   setCouponError: (error: string | undefined) => void;
   setIsMentorOpen: (isOpen: boolean) => void;
   setDiscountId: (id: string | null) => void;
+  setMigrationCourse: (migrationCourse: MigrationCourseType[] | null) => void;
   // setAvailableSchedules: (schedules: ScheduleType[] | null) => void;
   resetStore: () => void;
 }
@@ -54,6 +57,7 @@ const initialState = {
   couponError: undefined,
   isMentorOpen: false,
   discountId: null,
+  migrationCourse: null,
   // availableSchedules: null,
 };
 
@@ -74,5 +78,6 @@ export const useCourseStore = create<CourseState>((set) => ({
   setCouponError: (couponError) => set({ couponError }),
   setIsMentorOpen: (isMentorOpen) => set({ isMentorOpen }),
   setDiscountId: (discountId) => set({ discountId }),
+  setMigrationCourse: (migrationCourse) => set({ migrationCourse }),
   resetStore: () => set(initialState),
 }));
