@@ -177,16 +177,14 @@ const page = () => {
 
             {/* Actions */}
             <div className="flex flex-col gap-3">
-              <Button
-                variant="destructive"
-                className="w-full h-12 text-md font-semibold shadow-sm"
-                onClick={() =>
-                  window.open("https://wa.me/YOUR_WHATSAPP_NUMBER", "_blank")
-                }
-              >
-                <MessageCircle className="mr-2 h-5 w-5" /> Raise a Ticket
-              </Button>
-
+              <Link href={"/welcome/create-ticket"}>
+                <Button
+                  variant="destructive"
+                  className="w-full h-12 text-md font-semibold shadow-sm"
+                >
+                  <MessageCircle className="mr-2 h-5 w-5" /> Raise a Ticket
+                </Button>
+              </Link>
               <Button
                 variant="ghost"
                 className="text-slate-500 hover:text-slate-800"
