@@ -5,6 +5,9 @@ import getEnrolledCourses from "@/lib/courses/getEnrolledCourses";
 import { EnrolledCourse } from "@/types/EnrolledCourse";
 import EnrolledCourses from "@/components/Student/EnrolledCourses";
 import getProfileId from "@/lib/user/getProfileId";
+import { Button } from "@/components/ui/button";
+import handleMigration from "../../../../lib/migration/handleMigration";
+import Link from "next/link";
 
 const EnrollmentPage = () => {
   const { user } = useAuth();
@@ -40,8 +43,20 @@ const EnrollmentPage = () => {
 
   if (!Array.isArray(courses) || courses.length === 0) {
     return (
-      <div className="p-20 text-center text-slate-400 font-bold">
-        No active enrollments found.
+      <div className="flex flex-col items-center justify-center min-h-[400px] gap-4">
+        <div className="text-center text-slate-400 font-bold">
+          No active enrollments found.
+        </div>
+
+        <div className="flex gap-2">
+          {" "}
+          <Link href={"/welcome/allcourses"}>
+            <Button variant="outline">Explore all courses</Button>
+          </Link>
+          <Link href={"/welcome/enrolled-courses/migration"}>
+            <Button>Migrate Data</Button>
+          </Link>
+        </div>
       </div>
     );
   }

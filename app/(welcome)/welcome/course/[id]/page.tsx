@@ -6,15 +6,15 @@ import getSpecificCourse from "@/lib/courses/getSpecificCourse";
 import getOtherCourseDetails from "@/lib/courses/getOtherCourseDetails";
 import { useCourseStore } from "@/store/useCourseStore";
 import { useAuth } from "@/context/AuthContext";
-import Hero from "./Components/Hero";
-import Heading from "./Components/Heading";
-import SelectPlan from "./Components/SelectPlan";
-import StartDate from "./Components/StartDate";
-import SelectCounsellor from "./Components/SelectCounsellor";
-import UnlockedPricing from "./Components/UnlockedPricing";
-import LockedPricing from "./Components/LockedPricing";
-import discountLogic from "./action/discountLogic";
-import paymentLogic from "./action/paymentLogic";
+import Hero from "../../../../../components/SpecificProduct/Hero";
+import Heading from "../../../../../components/SpecificProduct/Heading";
+import SelectPlan from "../../../../../components/SpecificProduct/SelectPlan";
+import StartDate from "../../../../../components/SpecificProduct/StartDate";
+import SelectCounsellor from "../../../../../components/SpecificProduct/SelectCounsellor";
+import UnlockedPricing from "../../../../../components/SpecificProduct/UnlockedPricing";
+import LockedPricing from "../../../../../components/SpecificProduct/LockedPricing";
+import paymentLogic from "@/lib/specific-product/paymentLogic";
+import discountLogic from "@/lib/specific-product/discountLogic";
 
 export default function CourseDetailView() {
   const params = useParams();

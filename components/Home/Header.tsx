@@ -51,7 +51,7 @@ const Header = () => {
             className="flex items-center gap-1 text-xs md:text-sm font-medium text-foreground/70 hover:text-[#DC8916] transition-colors"
           >
             <BookOpen className="h-4 w-4" />
-            <span className="hidden sm:inline">Courses</span>
+            <span className="hidden sm:inline">Enrolled Courses</span>
           </Link>
           <Link
             href="/welcome/profile"
