@@ -8,6 +8,12 @@ export const menuItems = [
     link: "/welcome/profile/edit-profile",
   },
   {
+    icon: <Settings size={20} />,
+    label: "Support ticket",
+    desc: "Create a support ticket",
+    link: "/welcome/create-ticket",
+  },
+  {
     icon: <CreditCard size={20} />,
     label: "View Transactions",
     desc: "Check your course purchases",
