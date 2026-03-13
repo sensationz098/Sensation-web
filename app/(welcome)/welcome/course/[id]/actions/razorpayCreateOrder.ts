@@ -33,7 +33,7 @@ export default async function razorpayCreateOrder(data: DataType) {
     },
     modal: {
       ondismiss: function () {
-        console.log("Checkout modal closed");
+        console.error("Checkout modal closed");
       },
     },
   };

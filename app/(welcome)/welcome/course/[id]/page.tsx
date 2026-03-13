@@ -96,7 +96,6 @@ export default function CourseDetailView() {
   const finalPrice = basePrice + gstAmount - appliedDiscount;
 
   const handlePayment = async () => {
-    console.log("SCHEDULE ID: ", scheduleId);
     if (!user) return;
     paymentLogic({
       id: user.uid,

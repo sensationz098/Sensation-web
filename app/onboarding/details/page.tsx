@@ -96,9 +96,7 @@ export default function StudentDetailForm() {
   }, []);
 
   const onCountryChange = (countryName: string) => {
-    console.log("inside onchange");
     form.setValue("country", countryName);
-    console.log("country name", countryName);
     form.setValue("state", ""); // Reset state on country change
 
     const countryObj = allCountries.find((c) => c.name === countryName);
@@ -125,7 +123,6 @@ export default function StudentDetailForm() {
       phone: fullPhoneNumber,
     };
 
-    console.log("Final Submission to DB:", finalData, user, user?.photoURL);
     try {
       const response = await fetch(`${BASE_URL}/api/auth/create-profile`, {
         method: "POST",
@@ -146,9 +143,7 @@ export default function StudentDetailForm() {
       });
       const data = await response.json();
       if (response.ok) {
-        console.log("Successfully saved to DB:", data);
         alert("Profile updated successfully!");
-        console.log(finalData, finalData.country);
         const result = await axios.post("/api/auth/session/set-country", {
           country: finalData.country,
         });

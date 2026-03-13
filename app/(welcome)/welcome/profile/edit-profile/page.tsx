@@ -159,7 +159,6 @@ export default function EditProfilePage() {
   async function onSubmit(values: ProfileFormValues) {
     setSubmitting(true);
     const fullPhoneNumber = `${selectedDialCode}${values.phone.replace(/\s+/g, "")}`;
-    console.log(values);
     try {
       const id = await getProfileId(user?.uid || "");
       const response = await fetch(
@@ -181,7 +180,6 @@ export default function EditProfilePage() {
           }),
         },
       ).then((res) => res.json());
-      console.log("UPDATE ????: ", response);
       if (response.status) {
         alert("Profile updated successfully!");
         router.push("/welcome/profile");

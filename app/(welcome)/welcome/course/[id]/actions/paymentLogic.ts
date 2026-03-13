@@ -58,7 +58,6 @@ const paymentLogic = async ({
     discount_amount: appliedDiscount,
     counsellor_id: counsellorId,
   };
-  console.log("DATA: ", data);
   razorpayCreateOrder(data);
 };
 export default paymentLogic;

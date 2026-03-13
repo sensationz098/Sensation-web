@@ -15,13 +15,11 @@ export default async function discountLogic(
   );
   if (!filter || filter.length === 0) {
     setCouponError("COUPON NOT VALID!");
-    console.log("COUPON NOT VALID!");
     return 0;
   }
 
   if (finalPrice < filter[0].min_amount) {
     setCouponError(`Only valid if amount > ${filter[0].min_amount}`);
-    console.log(`Only valid if amount > ${filter[0].min_amount}`);
 
     return 0;
   }

@@ -48,7 +48,6 @@ const MigrationPage = () => {
       setError(response.error || "");
       return;
     }
-    console.log(response.course);
     setMigrationCourse(response.course);
     setLoading(false);
   };
