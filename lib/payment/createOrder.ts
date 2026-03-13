@@ -1,4 +1,4 @@
-import { DataType } from "@/app/(welcome)/welcome/course/[id]/action/paymentLogic";
+import { DataType } from "@/app/(welcome)/welcome/course/[id]/actions/paymentLogic";
 import { BASE_URL } from "@/config/api";
 
 export default async function createOrder(data: DataType) {
@@ -12,5 +12,4 @@ export default async function createOrder(data: DataType) {
   }).then((res) => res.json());
   if (response.status) return response.data;
   else return response.json({ success: false });
-  console.log("PAYMENT *********", response, response.data);
 }

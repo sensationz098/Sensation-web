@@ -9,6 +9,5 @@ export default async function getUserProfileDetails(id: string) {
     body: JSON.stringify({ id }),
     next: { revalidate: 0 },
   }).then((res) => res.json());
-  // console.log("SPECIFIC DATA: ", response.data);
   return response.data;
 }

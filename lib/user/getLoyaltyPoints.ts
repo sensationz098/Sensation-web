@@ -14,7 +14,6 @@ export default async function getLoyaltyPoints(id: string) {
     }
 
     const result = await response.json();
-    console.log("LOYAL POINTS Data received:", result.data);
     return result.data;
   } catch (error) {
     console.error("Error in LOYALTY POINTS:", error);

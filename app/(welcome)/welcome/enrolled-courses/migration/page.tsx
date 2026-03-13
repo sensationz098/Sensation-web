@@ -35,7 +35,6 @@ const MigrationPage = () => {
       .toUpperCase() || "U";
   useEffect(() => {
     if (migrationCourse) {
-      //   console.log("Migration Course updated:", migrationCourse);
       router.push("/welcome/enrolled-courses/migration/details");
     } else {
       console.error("NOT FOUND!!");
@@ -46,6 +45,8 @@ const MigrationPage = () => {
     const response = await handleMigration(user.email || "");
     if (!response.success) {
       setError(response.error || "");
+      setLoading(false);
+
       return;
     }
     setMigrationCourse(response.course);

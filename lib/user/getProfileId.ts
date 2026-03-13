@@ -1,8 +1,6 @@
 import { BASE_URL } from "@/config/api";
 
 export default async function getProfileId(id: string) {
-  // console.log("Fetching Profile for ID: ", id);
-
   try {
     const response = await fetch(`${BASE_URL}/api/auth/get-profile`, {
       method: "POST",
@@ -18,7 +16,6 @@ export default async function getProfileId(id: string) {
     }
 
     const result = await response.json();
-    // console.log("Profile Data received:", result.data.id);
     return result.data.id;
   } catch (error) {
     console.error("Error in getProfileId:", error);
