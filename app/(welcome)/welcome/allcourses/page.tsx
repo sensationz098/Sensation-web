@@ -2,8 +2,8 @@ import getAllCourses from "@/lib/courses/getAllCourses";
 import CourseDisplay from "@/components/Products/CourseDisplay";
 
 export default async function Page() {
-  const data = await getAllCourses();
-  const courses = data || [];
+  const { courses } = await getAllCourses();
+  const allCourses = courses || [];
 
   if (courses.length === 0) {
     return (
@@ -15,7 +15,7 @@ export default async function Page() {
 
   return (
     <main className="min-h-screen">
-      <CourseDisplay courses={courses} />
+      <CourseDisplay courses={allCourses} />
     </main>
   );
 }

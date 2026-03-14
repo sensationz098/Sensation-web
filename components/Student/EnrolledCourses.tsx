@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import {
   Video,
@@ -12,6 +12,8 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { EnrolledCourse } from "@/types/EnrolledCourse";
+import { Button } from "../ui/button";
+import isTimeDay from "@/app/(welcome)/welcome/enrolled-courses/action/isTimeDay";
 
 export default function EnrolledCourses({
   courses,
@@ -19,6 +21,11 @@ export default function EnrolledCourses({
   courses: EnrolledCourse[];
 }) {
   const brandOrange = "#DC8916";
+  const [checkSlot, setCheckSlot] = useState<boolean>(false);
+
+  useEffect(() => {
+    setCheckSlot(() => isTimeDay(courses));
+  }, []);
 
   return (
     <div className="space-y-8 py-10">
@@ -104,18 +111,24 @@ export default function EnrolledCourses({
               {/* 3. Right Side: Quick Action Links */}
               <div className="flex flex-col justify-center gap-3 w-full md:w-56 border-t md:border-t-0 md:border-l border-slate-50 pt-6 md:pt-0 md:pl-6">
                 {/* Join Meeting Button */}
-                <a
-                  href={item.schedule_meeting_link || "#"}
-                  target="_blank"
-                  className={`flex items-center justify-center gap-2 w-full py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all ${
-                    item.schedule_meeting_link
-                      ? "bg-[#DC8916] text-white shadow-lg shadow-[#DC8916]/30 hover:shadow-[#DC8916]/50 active:scale-95"
-                      : "bg-slate-100 text-slate-400 cursor-not-allowed"
-                  }`}
-                >
-                  <Video size={16} />
-                  Join Class
-                </a>
+                {checkSlot ? (
+                  <a
+                    href={item.schedule_meeting_link || "#"}
+                    target="_blank"
+                    className={`flex items-center justify-center gap-2 w-full py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all ${
+                      item.schedule_meeting_link
+                        ? "bg-[#DC8916] text-white shadow-lg shadow-[#DC8916]/30 hover:shadow-[#DC8916]/50 active:scale-95"
+                        : "bg-slate-100 text-slate-400 cursor-not-allowed"
+                    }`}
+                  >
+                    <Video size={16} />
+                    Join Class
+                  </a>
+                ) : (
+                  <Button className="p-6 bg-[#DC8916] text-white shadow-lg shadow-[#DC8916]/30 hover:shadow-[#DC8916]/50 active:scale-95">
+                    Take Rest
+                  </Button>
+                )}
 
                 {/* WhatsApp Group Button */}
                 <a

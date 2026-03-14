@@ -1,12 +1,15 @@
 import { useCourseStore } from "@/store/useCourseStore";
 import { CreditCard } from "lucide-react";
+import { useEffect } from "react";
 
 const UnlockedPricing = ({
+  updatedFinalPrice,
   basePrice,
   gstAmount,
   handleApplyCoupon,
   finalPrice,
   handlePayment,
+  updatedGst,
 }: any) => {
   const {
     course,
@@ -17,6 +20,9 @@ const UnlockedPricing = ({
     selectedSchedule,
     startDate,
   } = useCourseStore();
+  useEffect(() => {
+    console.log(updatedFinalPrice);
+  }, [updatedFinalPrice]);
   return (
     <div className="space-y-8 animate-in zoom-in-95 duration-500">
       <div className="pb-6 border-b border-zinc-800">
@@ -39,7 +45,8 @@ const UnlockedPricing = ({
               GST ({course.gst}%)
             </span>
             <span className="text-zinc-300 font-extrabold">
-              + {course.currency} {gstAmount.toLocaleString()}
+              + {course.currency}{" "}
+              {updatedGst ? updatedGst : gstAmount.toLocaleString()}
             </span>
           </div>
           {/* --- NEW COUPON SECTION --- */}
@@ -78,7 +85,10 @@ const UnlockedPricing = ({
             </span>
             <div className="flex items-baseline gap-1">
               <span className="text-4xl font-black tracking-tighter text-white">
-                {course.currency} {finalPrice.toLocaleString()}
+                {course.currency}{" "}
+                {updatedFinalPrice
+                  ? updatedFinalPrice
+                  : finalPrice.toLocaleString()}
               </span>
             </div>
           </div>

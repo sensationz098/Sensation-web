@@ -1,7 +1,7 @@
 import { useCourseStore } from "@/store/useCourseStore";
 
 const SelectPlan = () => {
-  const { otherDetails, setSelectedPlanIndex, selectedPlanIndex } =
+  const { course, otherDetails, setSelectedPlanIndex, selectedPlanIndex } =
     useCourseStore();
   return (
     <section className="space-y-6">
@@ -22,7 +22,9 @@ const SelectPlan = () => {
             <p className="text-[10px] font-black uppercase text-slate-400 mb-1">
               {plan.duration}
             </p>
-            <p className="font-black text-slate-900 italic">INR {plan.price}</p>
+            <p className="font-black text-slate-900 italic">
+              {course.currency} {plan.price}
+            </p>
           </button>
         ))}
       </div>

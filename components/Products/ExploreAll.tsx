@@ -1,7 +1,7 @@
 // 1. Correct the import
 import Link from "next/link";
 
-export default function ExploreAll() {
+export default function ExploreAll({ courseCount }: { courseCount: number }) {
   const brandOrange = "#DC8916";
 
   return (
@@ -33,7 +33,7 @@ export default function ExploreAll() {
             className="px-10 py-4 rounded-2xl text-white font-black text-lg shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 shadow-[#DC8916]/20 hover:shadow-[#DC8916]/40"
             style={{ backgroundColor: brandOrange }}
           >
-            BROWSE ALL 20+ COURSES
+            BROWSE ALL {courseCount}+ COURSES
           </button>
         </Link>
       </div>

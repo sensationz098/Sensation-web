@@ -11,7 +11,7 @@ export default function LockedPricing() {
       <div>
         <h4 className="text-lg font-bold text-zinc-200">Price is Locked</h4>
         <p className="text-xs text-zinc-500 mt-2 leading-relaxed">
-          Please select "MENTOR", "TIMING" & "STARTING DATE" slot to see the
+          Please select "Teacher", "TIMING" & "STARTING DATE" slot to see the
           final investment amount.
         </p>
       </div>

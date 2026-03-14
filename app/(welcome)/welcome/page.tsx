@@ -12,10 +12,11 @@ import { DiscountType } from "@/types/DiscountType";
 import { FeaturedType } from "@/types/FeaturedType";
 
 export default async function page() {
-  const courses: CourseType[] = await getAllCourses();
+  const coursesData = await getAllCourses();
   const categories: Category[] = await getAllCategories();
   const featuredCourses: FeaturedType[] = await getFeaturedCourses();
-
+  const courses: CourseType[] = coursesData.courses;
+  const courseCount: number = coursesData.count;
   if (!courses || !categories || !featuredCourses)
     return <div>Error fetching data</div>;
 
@@ -23,7 +24,7 @@ export default async function page() {
     <div>
       <Categories categories={categories} courses={courses} />
       <FeaturedCourses featuredCourses={featuredCourses} />
-      <ExploreAll />
+      <ExploreAll courseCount={courseCount} />
       <ChatBot />
     </div>
   );

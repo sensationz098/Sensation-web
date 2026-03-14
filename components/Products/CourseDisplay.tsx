@@ -72,12 +72,12 @@ export default function CourseDisplay({
                       )} */}
                     </div>
 
-                    <div className="absolute bottom-6 right-6 bg-white/80 backdrop-blur-xl border border-white/40 px-6 py-3 rounded-[2rem] shadow-2xl">
+                    <div className="absolute bottom-6 right-6 bg-white/80 backdrop-blur-xl border border-white/40 px-3 py-2 rounded-[2rem] shadow-2xl">
                       <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">
-                        Total Course Fee
+                        Fee
                       </p>
-                      <p className="text-2xl font-black text-slate-900 leading-none">
-                        <span className="text-sm mr-1 font-bold text-[#DC8916]">
+                      <p className="text-s font-black text-slate-900 leading-none">
+                        <span className=" mr-1 font-bold text-[#DC8916]">
                           {course.currency}
                         </span>
                         {course.price}

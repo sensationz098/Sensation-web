@@ -85,7 +85,7 @@ export default function CourseCard({ course }: { course: CourseType }) {
             </div>
             <div>
               <p className="text-[9px] uppercase font-black text-slate-300 tracking-[0.2em] mb-0.5">
-                Expert Mentor
+                Expert Teachers
               </p>
               {/* <p className="text-sm font-black text-slate-700">
                 {course.teacher_name}

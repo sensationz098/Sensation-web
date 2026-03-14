@@ -27,6 +27,10 @@ export default function CourseDetailView() {
   const [isMentorOpen, setIsMentorOpen] = useState(false);
   const [selectedDay, setSelectedDay] = useState("");
   const [scheduleId, setScheduleId] = useState("");
+  const [updatedGst, setUpdatedGst] = useState<Number | null>(null);
+  const [updatedFinalPrice, setUpdatedFinalPrice] = useState<Number | null>(
+    null,
+  );
   const {
     course,
     setCourse,
@@ -54,6 +58,11 @@ export default function CourseDetailView() {
       if (!id) return;
       try {
         setLoading(true);
+        // RESET ---
+        setSelectedSchedule(null);
+        setSelectedDay("");
+        setSelectedTeacher(null);
+        setAppliedDiscount(0);
         const [courseData, otherData] = await Promise.all([
           getSpecificCourse(id),
           getOtherCourseDetails(id),
@@ -68,7 +77,13 @@ export default function CourseDetailView() {
     };
     fetchAllData();
   }, [id, setCourse, setOtherDetails, setLoading]);
-
+  useEffect(() => {
+    if (!course) return;
+    const p = (basePrice - appliedDiscount) * (Number(course.gst || 1) / 100);
+    setUpdatedGst(p);
+    const up = Math.round(basePrice + p - appliedDiscount);
+    setUpdatedFinalPrice(up);
+  }, [appliedDiscount]);
   const uniqueTimings = Array.from(
     new Set(otherDetails?.schedule.map((s) => s.timing)),
   );
@@ -244,7 +259,7 @@ export default function CourseDetailView() {
           {selectedDay && (
             <section className="space-y-6 animate-in fade-in slide-in-from-top-4">
               <h3 className="text-sm font-black uppercase tracking-widest text-slate-400 flex items-center gap-3">
-                <span className="w-10 h-[2px] bg-[#DC8916]" /> Choose Mentor
+                <span className="w-10 h-[2px] bg-[#DC8916]" /> Teachers
               </h3>
               <div className="relative max-w-md">
                 <button
@@ -262,7 +277,7 @@ export default function CourseDetailView() {
                     <span className="font-bold text-slate-800 uppercase tracking-tight">
                       {selectedTeacher
                         ? selectedTeacher.name.toUpperCase()
-                        : "Select a Mentor"}
+                        : "Select a Teacher"}
                     </span>
                   </div>
                   <ChevronDown
@@ -317,8 +332,10 @@ export default function CourseDetailView() {
           <div className="sticky top-28 bg-zinc-900 text-white p-10 rounded-[3.5rem] shadow-2xl border border-zinc-800">
             {isReady ? (
               <UnlockedPricing
+                updatedFinalPrice={updatedFinalPrice}
                 basePrice={basePrice}
                 gstAmount={gstAmount}
+                updatedGst={updatedGst}
                 finalPrice={finalPrice}
                 handleApplyCoupon={handleApplyCoupon}
                 handlePayment={handlePayment}

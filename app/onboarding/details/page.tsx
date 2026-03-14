@@ -33,6 +33,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import Image from "next/image";
 import { BASE_URL } from "@/config/api";
+import toast, { Toaster } from "react-hot-toast";
 
 const formSchema = z.object({
   fullName: z.string().min(2, "Name must be at least 2 characters"),
@@ -143,22 +144,30 @@ export default function StudentDetailForm() {
       });
       const data = await response.json();
       if (response.ok) {
-        alert("Profile updated successfully!");
-        const result = await axios.post("/api/auth/session/set-country", {
+        toast.success("Profile created successfully");
+        await axios.post("/api/auth/session/set-country", {
           country: finalData.country,
         });
         router.push("/welcome");
       } else {
-        console.error("Failed to save profile", data);
-        alert("Failed to save profile");
+        toast.error("Failed to create profile");
       }
     } catch (error) {
-      console.error("Network error:", error);
+      toast.error(`Server error`);
     }
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-slate-50 p-4">
+    <div className="flex flex-col gap-4 justify-center items-center min-h-screen bg-slate-50 p-4">
+      <Toaster />
+
+      <div className="pt-8 px-6 text-center">
+        <h1 className="text-3xl md:text-4xl font-black tracking-tighter text-slate-900 italic">
+          SENSATIONZ{" "}
+          <span className="text-[#DC8916] not-italic">PERFORMING ARTS</span>
+        </h1>
+        <div className="h-1 w-20 bg-[#DC8916] mx-auto mt-2 rounded-full" />
+      </div>
       <Card className="w-full max-w-2xl shadow-xl border-none">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold tracking-tight">
@@ -370,7 +379,7 @@ export default function StudentDetailForm() {
                 className="cursor-pointer w-full py-6 text-lg font-semibold"
                 style={{ backgroundColor: brandColor }}
               >
-                Save Profile Details
+                Save
               </Button>
             </form>
           </Form>
